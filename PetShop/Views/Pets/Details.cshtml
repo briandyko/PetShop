@@ -37,15 +37,20 @@
     </dl>
 
     <h4>Food Info</h4>
+
+@foreach (var item in Model.foods)
+{
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.food.FoodName)
+            @Html.DisplayNameFor(model => item.FoodName)
         </dt>
-
+        
         <dd>
-            @Html.DisplayFor(model => model.food.FoodName)
+            @Html.DisplayFor(model => item.FoodName)
         </dd>
         </dl>
+        <hr/>
+}
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.pet.PetID }) |
