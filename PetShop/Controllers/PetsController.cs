@@ -27,12 +27,22 @@ namespace PetShop.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pet pet = db.Pets.Find(id);
-            if (pet == null)
+            Pet originalPet = db.Pets.Find(id);
+            if (originalPet == null)
             {
                 return HttpNotFound();
             }
-            return View(pet);
+
+            var viewModel = new PetFoodViewModel
+            {
+                pet = originalPet,
+                food = (from food in db.Foods
+                       where food.FoodName.Contains(originalPet.PetType)
+                       select food).First()
+
+            };
+
+            return View(viewModel);
         }
 
         // GET: Pets/Create
